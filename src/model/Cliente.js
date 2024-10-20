@@ -15,7 +15,11 @@ const Cliente = sequelize.define('Cliente', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  
+},{
+  tableName: 'Cliente',  // Nome explícito da tabela
 });
+
 
 // Associação entre Cliente e Pedido
 Cliente.associate = (models) => {
