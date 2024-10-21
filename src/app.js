@@ -9,6 +9,8 @@ const Cliente = require('./model/Cliente');
 const Produto = require('./model/Produto');
 const Pedido = require('./model/Pedido');
 const DetalhePedido = require('./model/DetalhePedido');
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('../swagger_output.json')
 
 // Associar as models
 Cliente.associate({ Pedido });
@@ -24,6 +26,7 @@ app.use(produtoRouter);
 app.use(clienteRouter);
 app.use(pedidoRouter);
 app.use(detalhePedidoRouter);
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 const startServer = async()=>{
     try{

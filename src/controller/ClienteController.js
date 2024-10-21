@@ -6,7 +6,7 @@ exports.criarCliente = async(req,res)=>{
         const  {nome, email} = req.body;
         const cliente = await Cliente.create({nome, email})
         res.status(201).json(cliente);
-}
+    }
 catch(error){
     res.status(500).json({error:'error ao criar cliente'})
 }
