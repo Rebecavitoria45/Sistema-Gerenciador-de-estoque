@@ -13,6 +13,7 @@ const DetalhePedido = require('./model/DetalhePedido');
 const Usuario = require('./model/Usuario')
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('../swagger_output.json')
+require('dotenv').config();
 
 // Associar as models
 Cliente.associate({ Pedido });
@@ -36,7 +37,7 @@ const startServer = async()=>{
         sequelize.sync({ alter: true })
        
         console.log('Banco de dados conectado.');
-        app.listen(3000,()=>{
+        app.listen(process.env.PORT || 3000,()=>{
             console.log('Servidor rodando na porta 3000');
 
         });}
