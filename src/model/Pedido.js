@@ -10,6 +10,7 @@ const Pedido = sequelize.define('Pedido', {
   dataCompra: {
     type: DataTypes.DATE,
     allowNull: false,
+    defaultValue: sequelize.NOW,
   },
   cliente_id: {
     type: DataTypes.INTEGER,

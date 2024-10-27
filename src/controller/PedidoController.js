@@ -4,13 +4,13 @@ const Cliente = require('../model/Cliente')
 
 exports.criarPedido = async(req,res)=>{
     try{
-        const {dataCompra,cliente_id} = req.body;
+        const {cliente_id} = req.body;
        const cliente = await Cliente.findByPk(cliente_id)
        if(!cliente){
         res.status(404).json({error:'Cliente não encontrado'})
        }
        else{
-        const pedido = await Pedido.create({dataCompra, cliente_id})
+        const pedido = await Pedido.create({cliente_id})
         res.status(201).json(pedido);
        }
 }
@@ -32,13 +32,13 @@ catch(error){
 exports.alterarpedido = async(req,res)=>{
     try{
         const {id} = req.params;
-        const {datacompra,cliente_id} = req.body;
+        const {cliente_id} = req.body;
         const cliente = await Cliente.findByPk(cliente_id);
         if(!cliente){
             res.status(404).json({error:"Cliente não encontrado"})
         }
         else{
-        const[update] = await Pedido.update({datacompra,cliente_id},{where:{id}});
+        const[update] = await Pedido.update({cliente_id},{where:{id}});
 
         if(update){
             const PedidoAtualizado = await Pedido.findByPk(id);

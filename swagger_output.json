@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Sistema de gerenciamento de estoque",
-    "description": "Documentação da API de Sistema de gerenciamento de estoque ",
+    "title": "API de Sistemas de gerenciamento de estoques",
+    "description": "Sistema para gerenciar estoques, para ter autorização crie um usuário e faça login ",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
@@ -10,12 +10,23 @@
   "schemes": [
     "http"
   ],
-  
+  "securityDefinitions": {
+    "BearerAuth": {
+      "type": "apiKey",
+      "name": "authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
   "paths": {
-    "/produtos": {
+    "/cadastrarusuario": {
       "post": {
-        "description": "",
-        "tags": ["Produto"],
+        "description": "Cadastrar um novo usuário",
+        "tags": ["usuario"],
         "parameters": [
           {
             "name": "body",
@@ -23,11 +34,11 @@
             "schema": {
               "type": "object",
               "properties": {
-                "nome": {
-                  "example": "espelho"
+                "login": {
+                  "example": "rebeca"
                 },
-                "preco": {
-                  "example": 10.99
+                "senha": {
+                  "example": "beca123"
                 }
               }
             }
@@ -41,42 +52,24 @@
             "description": "Internal Server Error"
           }
         }
-      },
-      "get": {
-        "description": "",
-        "tags": ["Produto"],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
       }
     },
-    "/produtos/{id}": {
-      "put": {
-        "description": "",
-        "tags": ["Produto"],
+    "/loginusuario": {
+      "post": {
+        "description": "Login do usuário",
+        "tags": ["usuario"],
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
           {
             "name": "body",
             "in": "body",
             "schema": {
               "type": "object",
               "properties": {
-                "nome": {
-                  "example": "cortina"
+                "login": {
+                  "example": "rebeca"
                 },
-                "preco": {
-                  "example": 18.99
+                "senha": {
+                  "example": "4ahehe"
                 }
               }
             }
@@ -89,6 +82,102 @@
           "404": {
             "description": "Not Found"
           },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/produtos": {
+      "post": {
+        "description": "",
+        "tags": ["produto"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "example": "espelho"
+                },
+                "preco": {
+                  "example": "20.99"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "tags": ["produto"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/produtos/{id}": {
+      "put": {
+        "description": "",
+        "tags": ["produto"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "example": "caixa"
+                },
+                "preco": {
+                  "example": "5.99"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -96,7 +185,7 @@
       },
       "delete": {
         "description": "",
-        "tags": ["Produto"],
+        "tags": ["produto"],
         "parameters": [
           {
             "name": "id",
@@ -107,7 +196,10 @@
         ],
         "responses": {
           "204": {
-            "description": "Deletado com sucesso"
+            "description": "No Content"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -121,7 +213,7 @@
     "/clientes": {
       "post": {
         "description": "",
-        "tags": ["Cliente"],
+        "tags": ["cliente"],
         "parameters": [
           {
             "name": "body",
@@ -130,7 +222,7 @@
               "type": "object",
               "properties": {
                 "nome": {
-                  "example": "Rebeca"
+                  "example": "rebeca"
                 },
                 "email": {
                   "example": "rebeca@gmail.com"
@@ -143,6 +235,9 @@
           "201": {
             "description": "Created"
           },
+          "403": {
+            "description": "Forbidden"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -150,10 +245,14 @@
       },
       "get": {
         "description": "",
-        "tags": ["Cliente"],
+        "tags": ["cliente"],
+        "parameters": [],
         "responses": {
-          "201": {
-            "description": "Created"
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"
@@ -164,7 +263,7 @@
     "/clientes/{cliente_id}": {
       "put": {
         "description": "",
-        "tags": ["Cliente"],
+        "tags": ["cliente"],
         "parameters": [
           {
             "name": "cliente_id",
@@ -179,10 +278,10 @@
               "type": "object",
               "properties": {
                 "nome": {
-                  "example": "Rebeca vitoria"
+                  "example": "david"
                 },
                 "email": {
-                  "example": "rebec@gmail.com"
+                  "example": "david@gmail.com"
                 }
               }
             }
@@ -191,6 +290,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -202,7 +304,7 @@
       },
       "delete": {
         "description": "",
-        "tags": ["Cliente"],
+        "tags": ["cliente"],
         "parameters": [
           {
             "name": "cliente_id",
@@ -213,7 +315,10 @@
         ],
         "responses": {
           "204": {
-            "description": "Deletado com sucesso"
+            "description": "No Content"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -227,7 +332,7 @@
     "/pedidos": {
       "post": {
         "description": "",
-        "tags": ["Pedido"],
+        "tags": ["pedido"],
         "parameters": [
           {
             "name": "body",
@@ -235,11 +340,8 @@
             "schema": {
               "type": "object",
               "properties": {
-                "dataCompra": {
-                  "example": "20-10-2023"
-                },
                 "cliente_id": {
-                  "example": 1
+                  "example": "5"
                 }
               }
             }
@@ -248,6 +350,9 @@
         "responses": {
           "201": {
             "description": "Created"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -259,10 +364,14 @@
       },
       "get": {
         "description": "",
-        "tags": ["Pedido"],
+        "tags": ["pedido"],
+        "parameters": [],
         "responses": {
-          "201": {
-            "description": "Created"
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"
@@ -273,7 +382,7 @@
     "/pedidos/{id}": {
       "put": {
         "description": "",
-        "tags": ["Pedido"],
+        "tags": ["pedido"],
         "parameters": [
           {
             "name": "id",
@@ -287,11 +396,8 @@
             "schema": {
               "type": "object",
               "properties": {
-                "datacompra": {
-                  "example": "15-02-2010"
-                },
                 "cliente_id": {
-                  "example": 5
+                  "example": "8"
                 }
               }
             }
@@ -300,6 +406,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -311,7 +420,7 @@
       },
       "delete": {
         "description": "",
-        "tags": ["Pedido"],
+        "tags": ["pedido"],
         "parameters": [
           {
             "name": "id",
@@ -322,7 +431,10 @@
         ],
         "responses": {
           "204": {
-            "description": "Deletado com sucesso"
+            "description": "No Content"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -336,7 +448,7 @@
     "/detalhePedidos": {
       "post": {
         "description": "",
-        "tags": ["DetalhePedido"],
+        "tags": ["detalhe pedido"],
         "parameters": [
           {
             "name": "body",
@@ -345,19 +457,19 @@
               "type": "object",
               "properties": {
                 "id_pedido": {
-                  "example": 5
+                  "example": "3"
                 },
                 "id_produto": {
-                  "example": 1
+                  "example": "2"
                 },
                 "quantidade": {
-                  "example": 6
+                  "example": "10"
                 },
                 "preco": {
-                  "example": 9.10
+                  "example": "288.9"
                 },
                 "desconto": {
-                  "example": 0.00
+                  "example": "0.00"
                 }
               }
             }
@@ -366,6 +478,9 @@
         "responses": {
           "201": {
             "description": "Created"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -377,10 +492,14 @@
       },
       "get": {
         "description": "",
-        "tags": ["DetalhePedido"],
+        "tags": ["detalhe pedido"],
+        "parameters": [],
         "responses": {
-          "201": {
-            "description": "Created"
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"
@@ -388,13 +507,13 @@
         }
       }
     },
-    "/detalhePedidos/{id_detalhePedido}": {
+    "/detalhePedidos/{id}": {
       "put": {
         "description": "",
-        "tags": ["DetalhePedido"],
+        "tags": ["detalhe pedido"],
         "parameters": [
           {
-            "name": "id_detalhePedido",
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -406,19 +525,19 @@
               "type": "object",
               "properties": {
                 "id_pedido": {
-                  "example": 3
+                  "example": "7"
                 },
                 "id_produto": {
-                  "example": 2
+                  "example": "1"
                 },
                 "quantidade": {
-                  "example": 9
+                  "example": "6"
                 },
                 "preco": {
-                  "example": 100
+                  "example": "10.99"
                 },
                 "desconto": {
-                  "example": 0.00
+                  "example": "0.00"
                 }
               }
             }
@@ -427,6 +546,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -438,10 +560,10 @@
       },
       "delete": {
         "description": "",
-        "tags": ["DetalhePedido"],
+        "tags": ["detalhe pedido"],
         "parameters": [
           {
-            "name": "id_detalhePedido",
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -450,6 +572,9 @@
         "responses": {
           "204": {
             "description": "No Content"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"

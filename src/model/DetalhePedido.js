@@ -28,11 +28,11 @@ const DetalhePedido = sequelize.define('DetalhePedido', {
     allowNull: false,
   },
   preco: {
-    type: DataTypes.DECIMAL(10, 2),
+    type: DataTypes.FLOAT,
     allowNull: false,
   },
   desconto: {
-    type: DataTypes.DECIMAL(10, 2),
+    type: DataTypes.FLOAT,
     allowNull: false,
   },
 },{

@@ -12,7 +12,7 @@ const Produto = sequelize.define('Produto', {
     allowNull: false,
   },
   preco: {
-    type: DataTypes.DECIMAL,
+    type: DataTypes.FLOAT,
     allowNull: false,
   }
 },{
