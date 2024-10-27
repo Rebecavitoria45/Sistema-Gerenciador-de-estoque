@@ -5,7 +5,7 @@
     "description": "Sistema para gerenciar estoques, para ter autorização crie um usuário e faça login ",
     "version": "1.0.0"
   },
-  "host": "https://sistema-gerenciador-de-estoque.onrender.com",
+  "host": "sistema-gerenciador-de-estoque.onrender.com/",
   "basePath": "/",
   "schemes": [
     "https"
