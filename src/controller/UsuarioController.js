@@ -28,7 +28,9 @@ exports.loginUsuario = async(req,res)=>{
     try{
            const  {login, senha} = req.body;
     
-           const usuario = await Usuario.findOne({login: login});
+           const usuario = await Usuario.findOne({where: { 
+            login: req.body.login
+        }});
            if(!usuario){
             return res.status(404).json({msg:'error ao encontrar usuário'})
            }
