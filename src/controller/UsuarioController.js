@@ -7,6 +7,9 @@ require('dotenv').config();
 exports.cadastrarUsuario = async(req,res)=>{
 try{
         const  {login, senha} = req.body;
+
+        if(!login) return res.status(422).json({msg:'Login é obrigatório'})
+        if(!senha) return res.status(422).json({msg:'senha é obrigatório'})
         //criando Hash da senha
         try {
             const salt = await bcrypt.genSalt(12);
@@ -15,7 +18,9 @@ try{
             console.error('Erro ao gerar hash:', hashError);
             return res.status(500).json({ error: 'Erro ao gerar hash da senha' });
         }
-        
+        const usuarioexiste = await Usuario.findOne({where: {login: req.body.login}})
+        if(usuarioexiste) return   res.status(422).json({ error: 'Login já cadastrado' });
+
         const usuario = await Usuario.create({login,senhaHash})
         res.status(201).json({msg:'Usuário cadastrado:',login});
 }
@@ -27,6 +32,9 @@ catch(error){
 exports.loginUsuario = async(req,res)=>{
     try{
            const  {login, senha} = req.body;
+
+           if(!login) return res.status(422).json({msg:'Login é obrigatório'})
+           if(!senha) return res.status(422).json({msg:'senha é obrigatório'})
     
            const usuario = await Usuario.findOne({where: { 
             login: req.body.login

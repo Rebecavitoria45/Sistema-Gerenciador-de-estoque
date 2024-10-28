@@ -1,10 +1,13 @@
 const { error } = require('console');
 const Produto = require('../model/Produto')
+const Categoria = require('../model/Categoria')
 
 exports.criarProduto = async(req,res)=>{
     try{
-        const  {nome, preco} = req.body;
-        const produto = await Produto.create({nome,preco})
+        const  {nome, preco, id_categoria} = req.body;
+        const categoriaexiste = await Categoria.findOne({where:{id:req.body.id_categoria}})
+        if(!categoriaexiste) return res.status(404).json({ error: 'categoria não encontrada' });
+        const produto = await Produto.create({nome,preco,id_categoria})
         res.status(201).json(produto);
 }
 catch(error){
@@ -25,8 +28,11 @@ catch(error){
 exports.alterarProduto = async(req,res)=>{
     try{
         const {id} = req.params;
-        const {nome, preco} = req.body;
-        const[update] = await Produto.update({nome,preco},{where:{id}});
+        const {nome, preco, id_categoria} = req.body;
+        const categoriaexiste = await Categoria.findOne({where:{id:req.body.id_categoria}})
+        if(!categoriaexiste) return res.status(404).json({ error: 'categoria não encontrada' });
+
+        const[update] = await Produto.update({nome,preco,id_categoria},{where:{id}});
 
         if(update){
             const produtoAtualizado = await Produto.findByPk(id);

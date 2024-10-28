@@ -14,6 +14,14 @@ const Produto = sequelize.define('Produto', {
   preco: {
     type: DataTypes.FLOAT,
     allowNull: false,
+  },
+  id_categoria: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'Categoria',
+      key: 'id',
+    }
   }
 },{
   tableName: 'Produto',  // Nome explícito da tabela
@@ -26,6 +34,11 @@ Produto.associate = (models) => {
     foreignKey: 'id_produto',
     otherKey: 'id_pedido',
     as: 'pedidos',
+  });
+
+  Produto.belongsTo(models.Categoria, {
+    foreignKey: 'id_categoria',
+    as: 'categoria'
   });
 };
 
