@@ -4,11 +4,11 @@ Este é um sistema de gerenciamento de estoque desenvolvido em Node.js, utilizan
 
 ## 🔍 Visão Geral
 
-O Sistema de Gerenciamento de Estoque facilita o gerenciamento de clientes, pedidos e produtos, permitindo que empresas acompanhem o fluxo de estoque. Ele possui uma API RESTful documentada com Swagger e protegida com JWT.
+O Sistema de Gerenciamento de Estoque facilita o gerenciamento de clientes, pedidos, produtos e categoria permitindo que empresas acompanhem o fluxo de estoque. Ele possui uma API RESTful documentada com Swagger e protegida com JWT.
 
 ## ⚙️ Funcionalidades
 
-- **CRUD de Usuários, Clientes, Pedidos, Produtos e Detalhes de Pedido**
+- **CRUD de Usuários, Clientes, Pedidos, Produtos, Detalhes de Pedido e Categoria**
 - **Autenticação com JWT**: Tokens seguros para proteger as rotas do sistema.
 - **Documentação da API**: Interface amigável e interativa para testar endpoints através do Swagger.
 
@@ -29,6 +29,7 @@ O projeto inclui as seguintes entidades:
 3. **Pedido**: Armazena detalhes dos pedidos realizados por clientes.
 4. **Produto**: Gerenciamento dos produtos disponíveis no estoque.
 5. **Detalhe do Pedido**: Relação entre pedidos e produtos, com quantidades e valores.
+6.  **Categoria**: Cadastra categorias relacionada ao produto.
 
 ## 🔒 Autenticação
 
@@ -43,7 +44,7 @@ Este token permite que você acesse as rotas protegidas e mantenha a segurança 
 
 O projeto foi implantado no Render e está disponível para acesso público. Acesse o link abaixo para visualizar a aplicação em execução:
 
-- [Sistema de Gerenciamento de Estoque - Deploy](https://sistema-gerenciador-de-estoque.onrender.com)
+- [Sistema de Gerenciamento de Estoque - Deploy](https://sistema-gerenciador-de-estoque.onrender.com/)
   
 
 ## 📱👩‍💻 Contato
