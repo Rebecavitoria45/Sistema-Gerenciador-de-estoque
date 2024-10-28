@@ -91,9 +91,110 @@
         }
       }
     },
+    "/categorias": {
+      "post": {
+        "description": "Cadastrar uma nova categoria",
+        "tags": ["categoria"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "example": "Eletrônicos"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "description": "Listar categorias",
+        "tags": ["categoria"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/categorias/{id}": {
+      "put": {
+        "description": "Atualizar uma categoria",
+        "tags": ["categoria"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "example": "Acessórios"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletar uma categoria",
+        "tags": ["categoria"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/produtos": {
       "post": {
-        "description": "",
+        "description": "Cadastrar um novo produto",
         "tags": ["produto"],
         "parameters": [
           {
@@ -107,6 +208,9 @@
                 },
                 "preco": {
                   "example": "20.99"
+                },
+                "id_categoria": {
+                  "example": "1"
                 }
               }
             }
@@ -125,7 +229,7 @@
         }
       },
       "get": {
-        "description": "",
+        "description": "Listar produtos",
         "tags": ["produto"],
         "parameters": [],
         "responses": {
@@ -143,7 +247,7 @@
     },
     "/produtos/{id}": {
       "put": {
-        "description": "",
+        "description": "Atualizar um produto",
         "tags": ["produto"],
         "parameters": [
           {
@@ -163,6 +267,9 @@
                 },
                 "preco": {
                   "example": "5.99"
+                },
+                "id_categoria": {
+                  "example": "2"
                 }
               }
             }
@@ -184,7 +291,7 @@
         }
       },
       "delete": {
-        "description": "",
+        "description": "Deletar um produto",
         "tags": ["produto"],
         "parameters": [
           {
@@ -586,4 +693,6 @@
       }
     }
   }
-}
+} 
+  
+
